@@ -7,9 +7,13 @@
 #include "uLCD_4DGL.h"
 
 
-uLCD_4DGL uLCD(D1, D0, D2); // serial tx, serial rx, reset pin;
+Serial pc( USBTX, USBRX );
+uLCD_4DGL uLCD(D1, D7, D2); // serial tx, serial rx, reset pin;
+PwmOut PWM1(D0);
+AnalogIn Ain(A0);
 
-
+float i;
+float a = 0.1;
 int main()
 
 {
@@ -25,5 +29,15 @@ int main()
     uLCD.filled_rectangle(50, 50, 100, 100, 0x00FF00);
 
     
+    while(1){
+        for( i=0; i<=1 || i>=0; i=i+a){
+        PWM1 = i;
+            if(a==1 || a==0){
+              a = -a;
+            }
+        wait(0.1);
+        }
+    }
+
 
 }
